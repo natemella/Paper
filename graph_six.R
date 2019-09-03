@@ -39,16 +39,16 @@ vline.dat <- data.frame(type=levels(dat$type), l)
 
 
 
-df1<-merge(x=df, y=vline.dat, by="type", all= TRUE)
+# df1<-merge(x=df, y=vline.dat, by="type", all= TRUE)
 
 
-df1 %>%
+df %>%
   ggplot(aes(x = PFI.time)) +
   # facet_grid(rows = vars(type), scales='free') +
   theme_bw() +
   geom_histogram() +
-  geom_vline(aes(xintercept=l), data=df1, colour="pink") +
-  geom_vline(aes(xintercept=l2), data=df1, colour="blue") +
+  geom_vline(aes(xintercept=l), data=vline.dat, colour="pink") +
+  geom_vline(aes(xintercept=l2), data=vline.dat, colour="blue") +
   facet_grid(rows = vars(type)) +
   scale_fill_manual(values = cbPalette)
 
