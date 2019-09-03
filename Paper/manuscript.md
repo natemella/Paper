@@ -255,6 +255,7 @@ cross validation for parameter optimization. All hyper-parameters were chosen ba
  |      5      | miRNA | RPPA |  |  |  |  |  |  |
  |      6      | CNV | mRNA |  |  |  |  |  |  |    
  |      7      | DNA Methylation  | CNV |  |  |  |  |  |  | 
+
 (just show which data types tend to be added) 
 
 **Testing our recommendations.** In order to asses how usesful our recommendations would be to other researchers, we first ran our analysis for 7 out of the 10
