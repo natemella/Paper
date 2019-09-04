@@ -251,7 +251,7 @@ cross validation for parameter optimization. All hyper-parameters were chosen ba
  |      1      | Clinical | Clinical | Clinical | Clinical | Clinical | Clinical | Clinical | Clinical |
  |      2      | SM | SM | miRNA | miRNA | RPPA | RPPA | SM | SM |
  |      3      | mRNA | miRNA | DNA Methylation | SM | miRNA | mRNA | mRNA | mRNA |
- |      4      | RPPA | DNA Methylation |  |  |  |  |  |  |
+ |      4      | RPPA | DNA Methylation | CNV | DNA Methylation | CNV | miRNA | RPPA | RPPA |
  |      5      | miRNA | RPPA |  |  |  |  |  |  |
  |      6      | CNV | mRNA |  |  |  |  |  |  |    
  |      7      | DNA Methylation  | CNV |  |  |  |  |  |  | 
@@ -306,13 +306,11 @@ Uterine Corpus Endometrial Carcinoma (UCEC). Cancer types were selected primaril
  standard metric to compare accuracy over sensitivity in order to quanitify the discriminatory power of a classifier predictive
  model: a AUROC of 1 indicates perfect prediction accuracy and a AUROC of 0.5 is the equivalent of a random guess. 
  
-  For each cancer type, the clinical-variable-only models showed substantial predictive power, with AUROCs significantly
-  higher than 0.5 (range: ____ – ____ ; ). In ___ out of __ cases, the models built
-   from individual molecular data sets alone showed statistically significant predictive power (Supplementary Fig. 4), 
-   but in only one case, the model built from mRNA Expression data had predictive power similar to that of the 
-   corresponding clinical-variable-only model .
+  For each algorithm, the clinical-variable-only models showed substantial predictive power, with AUROCs significantly
+  higher than 0.5 (range: 0.62 – 0.67) when averaged across cancer types. In only 3 out of 56 cases, the model built 
+  from mRNA Expression data had predictive power similar to that of the corresponding clinical-variable-only model .
     The relative predictive power of individual molecular data sets strongly depended on the cancer type; for example, 
-    the prognostic power was much higher for STAD than for the other three cancer types. 
+    the prognostic power was generally higher for STAD than for the other six cancer types. 
  
  **Table 1 overview of samples**
  
@@ -352,7 +350,12 @@ SM represetns Somatic Mutations. Total is the number of patients for whom we hav
 
 **Figure 1**
 ![](../Graphs/Figure%201.png)
-Figure 1 shows all four key steps in our work flow. The four steps were carried out until all seven data types were combined together
+Figure 1 shows all four key steps in our work flow. The four steps were carried out until all seven data types were 
+combined together. Step 1 shows how we segmented our data. We attached PFI values to each data set while training but hid
+the PFI values while testing. In step 2 we show how we use nested 5 fold cross validation for parameter optimization. With did
+5 outer folds, 5 inner folds, with 5 iterations. Step 3 shows how we evaluated our data by averaging folds, then iterations,
+then ranking data types (within each cancer type) for each algorithm. Step 4 shows how we added the winning data type to
+the remainder of our core dataset and repeated steps 2 & 3.
 
 **Graph 1**
 ![](../Graphs/PFI.time.png)
@@ -367,6 +370,9 @@ the two values were excluded.
 (convert graph to bars)
 
 Graph 2 caption:
+In figure 2, the bars represent the range for the min AUROC and max AUROC of each algorithm that used a particular data type. 
+Bar colors represent data types. As shown, there is immense variability of AUROC values between data types, algorithms,
+ and cancer types signifying a need to 
  - variability: AUROC, Data Types, Algorithms
  - Huge most predictive cancer types
  
