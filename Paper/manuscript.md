@@ -73,9 +73,9 @@ researchers to advance precision medicine--enabling physicians to tailor medical
 if we can successfully identify relationships between these molecular measurements and patient outcomes. A particularly import outcome to
 understand is the Progression Free Interval (PFI) of a tumor. The PFI represents "the date of diagnosis until the date of
  the first occurrence of a new tumor event (NTE), which includes progression of the disease, locoregional recurrence, 
- distant metastasis, new primary tumor, or death with tumor."
- PFI is valuable to predict because it represents how effect treatments work, and it's less susceptible to lurking variables 
- that other outcome predictions include. For example, Overall Survival (OS) is easy to define but death by other causes unrelated to
+ distant metastasis, new primary tumor, or death with tumor.[@liuIntegratedTCGAPanCancer2018]"
+ PFI is valuable to predict because it represents how effect treatments work, it's easy to define, and it's less susceptible to lurking variables 
+ than other outcome predictions. For example, Overall Survival (OS) is valueable and easy to define, but death by other causes unrelated to
  cancer causes this outcome variable to become confounded.
 
 Many researchers are attempting to use high-throughput molecular profiles for precision medicine and procure biological samples to test
@@ -93,7 +93,8 @@ each algorithms ability to classify PFI status based on these heterogeneous comb
 
 
 NOTES
- - Tell a story
+
+    Tell a story
       **BIG NEED**
       Precision Medicine Promises to enable physicians to tailor medical decisions to individual patients. -> Clinical & Molecular Measurements
       -> Molecular Measurements in a high throughput manner. -> Wealth of data gives oppportunity to advance precision medicine if we can succesfully identify 
@@ -101,7 +102,6 @@ NOTES
 
       **SPECIFIC PROBLEM**
     
-      
       **HOW WE'RE ADDRESSING THE PROBLEM and HIGH LEVEL SUMMARY OF METHODS AND RESULTS**
 
       (Allude to what other have done. At a high level how is what we've done unique and different from what others have done)
@@ -372,9 +372,9 @@ the two values were excluded.
 Graph 2 caption:
 In figure 2, the bars represent the range for the min AUROC and max AUROC of each algorithm that used a particular data type. 
 Bar colors represent data types. As shown, there is immense variability of AUROC values between data types, algorithms,
- and cancer types signifying a need to 
- - variability: AUROC, Data Types, Algorithms
- - Huge most predictive cancer types
+ and cancer types signifying a need to strategically pick algorithms according to the appropriate cancer type and data type.
+ Overall, it appears that STAD is the most predictive cancer type.
+
  
 
 **Graph 3**
@@ -382,6 +382,7 @@ Bar colors represent data types. As shown, there is immense variability of AUROC
 
 Graph 3 caption:
  - While their is huge variability, random_forests tends to best among all data types when their aren't any combinations
+ and when averaged across all cancers.
  
 **Graph 4**
 ![](../Graphs/most_predictive_datatypesolo.png)
@@ -389,7 +390,7 @@ Graph 3 caption:
 
 Graph 4 caption:
  - The top performing data type was significantly different for each algorithm. There was a high variety in data type 
- performance. Clinical data on average was signifcantly higher than the other data types individually
+ performance. Clinical data on average was significantly higher than the other data types individually
 
 **Graph 5**
 ![](../Graphs/combination_difference.png)
@@ -397,14 +398,14 @@ Graph 4 caption:
 
 Graph 5 caption:
  - As you combine data types, you can see that certain algorithms increase performance while others decrease. The highest
- average performing algorithm is glmnet. 
+ average performing algorithm is glmnet. The x axis shows the number of combinations. Combinations were unique for each algorithm. 
  
  
 
 **Computational insights from top-performing algorithms.**
-Glment is made to handle wide data frames. Zero values are excluded from the data set in order to be more memory effecient. Therefore, the increase
+Glmnet is made to handle wide data frames. Zero values are excluded from the data set in order to be more memory effecient. Therefore, the increase
 in data does not negatively affect the algorithm as much. We also observed that binary features such as somatic mutation data did extremely well.
-The algorithm that reached the highest total AUROC was xgboost because...
+The algorithm that reached the highest total AUROC was xgboost. Xgboost is designed to 
 
 **Conclusion**
  - The best combination of data types and algorithm is unique for each cancer type. The safest, cheapest data type option with 
