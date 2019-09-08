@@ -116,7 +116,7 @@ NOTES
       have studied which types of molecular data and/or which combinations of such data provide the best predictions. This 
       makes it imperative that we more fully understand whether certain ML algorithms work better for specific types of molecular data.
 
-(Site Johnathon's Article on why to separate by cancer types)
+    (Site Johnathon's Article on why to separate by cancer types)
 
 # Methods
 
@@ -350,6 +350,8 @@ SM represetns Somatic Mutations. Total is the number of patients for whom we hav
 
 **Figure 1**
 ![](../Graphs/Figure%201.png)
+TODO: Make in google draw simplify box three and make box 7 in series format
+
 Figure 1 shows all four key steps in our work flow. The four steps were carried out until all seven data types were 
 combined together. Step 1 shows how we segmented our data. We attached PFI values to each data set while training but hid
 the PFI values while testing. In step 2 we show how we use nested 5 fold cross validation for parameter optimization. With did
@@ -359,15 +361,16 @@ the remainder of our core dataset and repeated steps 2 & 3.
 
 **Graph 1**
 ![](../Graphs/PFI.time.png)
+TODO: Binwidth arguement in ggplot2. Bars a lighter gray
 
 Graph 1 caption: Pink line represents upper cut off for excluded values. Everything above the pink line was labeled LPFI.
 Blue line represents the lower cut off for excluded values. Everything below the blue line was labeled SPFI. Any patients inbetween
-the two values were excluded.
+the two values were excluded. SPFI were only included if they had a tumor event because __________.
 
 
 **Graph 2**
 ![](../Graphs/most_predictive_cancer_typesolo.png)
-(convert graph to bars)
+TODO: violin
 
 Graph 2 caption:
 In figure 2, the bars represent the range for the min AUROC and max AUROC of each algorithm that used a particular data type. 
@@ -379,6 +382,17 @@ Bar colors represent data types. As shown, there is immense variability of AUROC
 
 **Graph 3**
 ![](../Graphs/most_predictive_algorithmsolo.png)
+TODO: replace _ with '\n'
+"#a50026"
+"#d73027"
+"#f46d43"
+"#fdae61"
+"#fee090"
+"#ffffbf"
+"#abd9e9"
+"#74add1"
+"#4575b4"
+"#313695"
 
 Graph 3 caption:
  - While their is huge variability, random_forests tends to best among all data types when their aren't any combinations
@@ -387,29 +401,32 @@ Graph 3 caption:
 **Graph 4**
 ![](../Graphs/most_predictive_datatypesolo.png)
 
-
+TODO:
 Graph 4 caption:
  - The top performing data type was significantly different for each algorithm. There was a high variety in data type 
  performance. Clinical data on average was significantly higher than the other data types individually
 
 **Graph 5**
 ![](../Graphs/combination_difference.png)
-(Need to split into differing facets)
+(Need to split into differing facets or add labels)
 
 Graph 5 caption:
  - As you combine data types, you can see that certain algorithms increase performance while others decrease. The highest
- average performing algorithm is glmnet. The x axis shows the number of combinations. Combinations were unique for each algorithm. 
- 
+ average performing algorithm is glmnet. The x axis shows the number of combinations. Combinations were unique for each algorithm. Values
+ above _____ represent statistically significant.
  
 
 **Computational insights from top-performing algorithms.**
 Glmnet is made to handle wide data frames. Zero values are excluded from the data set in order to be more memory effecient. Therefore, the increase
 in data does not negatively affect the algorithm as much. We also observed that binary features such as somatic mutation data did extremely well.
-The algorithm that reached the highest total AUROC was xgboost. Xgboost is designed to 
+The algorithm that reached the highest total AUROC was eXtreme Gradient Boosting (Xgboost). Xgboost is designed to ________ 
 
 **Conclusion**
  - The best combination of data types and algorithm is unique for each cancer type. The safest, cheapest data type option with 
- effective AUROC values is clinical features. 
+ effective AUROC values is clinical features. On average you can significantly increase the accuracy of predictions by using Glmnet and 
+ xgboost. When we tested our hypothesis on three untested algorithms we found ______.
+ 
+ 
 
 \newpage
 
