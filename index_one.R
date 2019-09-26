@@ -6,6 +6,7 @@ args <- commandArgs(trailingOnly = TRUE)
 
 df2 <- read_tsv(args[1]) %>%
   mutate(CancerType = str_replace(CancerType, "^TCGA_", ""), Algorithm=factor(Algorithm)) %>%
+  mutate(Description = str_replace(Description, "\\+Clinical\\+miRNA\\+RPPA\\+SM", "")) %>%
   group_by(Algorithm, CancerType, Description) %>%
   summarize(AUROC=mean(AUROC))
 
@@ -28,4 +29,4 @@ df3 %>%
   scale_color_manual(values = cbPalette) +
   theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
-ggsave(args[2], height = 5, width = 10)
+ggsave(args[2], height = 4, width =7)

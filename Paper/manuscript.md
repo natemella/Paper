@@ -369,7 +369,7 @@ the two values were excluded. SPFI were only included if they had a tumor event 
 
 
 **Graph 2**
-![](../Graphs/most_predictive_cancer_typesolo.png)
+![](../Graphs/most_predictive_cancer_typeposter.png)
 TODO: violin
 
 Graph 2 caption:

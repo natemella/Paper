@@ -42,8 +42,9 @@ df2 = df2 %>%
 ### make and save plot
 
 graph_name <- paste("graphs/most_predictive_datatype",args[2],".png", sep="")
-
-cbPalette <- c("#40004b", "#762a83", "#9970ab", "#c2a5cf", "#e7d4e8", "#d9f0d3", "#a6dba0", "#5aae61", "#1b7837", "#00441b")
+cbPalette <- c("#8c510a", "#d8b365", "#f6e8c3", "gray50", "#c7eae5", "#5ab4ac", "#01665e", "#bcbd22")
+# cbPalette <- c("#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf")
+# cbPalette <- c("#40004b", "#762a83", "#9970ab", "#c2a5cf", "#e7d4e8", "#d9f0d3", "#a6dba0", "#5aae61", "#1b7837", "#00441b")
 df2 %>%
   ggplot(aes(x = Description, y = AUROC, color = Algorithm, shape = Algorithm)) +
   # scale_y_reverse() +
@@ -55,4 +56,4 @@ df2 %>%
   scale_color_manual(values = cbPalette) +
   theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
-ggsave(graph_name, height = 7, width = 10, dpi = 300)
+ggsave(graph_name, height = 4, width =7, dpi = 300)
