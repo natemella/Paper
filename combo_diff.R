@@ -13,10 +13,12 @@ library(stringr)
 list_of_dfs = list()
 i <- 1
 for (file in list.files(path = getwd())) {
-  if ((startsWith(file, "+")) &(endsWith(file, "tsv"))) {
+  if ((startsWith(file, "combination")) &(endsWith(file, "tsv"))) {
     df <- read_tsv(file)
-    df = df %>% group_by(Algorithm) %>% summarise(AUROC = mean(AUROC))%>%
-    mutate(Combination = str_wrap(str_replace(file, ".tsv", "")), width= 2)
+    df = df %>% group_by(Algorithm, CancerType, Description, Iteration) %>% summarise(AUROC= mean(AUROC))
+    df = df %>% group_by(Algorithm, CancerType, Description) %>% summarise(AUROC= mean(AUROC))
+    df = df %>% group_by(Algorithm) %>% summarise(AUROC = max(AUROC))%>%
+    mutate(Combination = str_wrap(str_replace(file, ".tsv", "") %>% str_replace("combination_of_", ""), width= 2))
     list_of_dfs[[i]] <- df
     i <- i + 1
   }
@@ -31,7 +33,8 @@ df <- df %>% mutate(Combination = factor(Combination))
 
 cbPalette <- c("#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf")
 i = 1
-df %>% ggplot(aes(x = Combination, y = AUROC, color = Algorithm, fill = Algorithm)) +
+df %>% ggplot(aes(x = Combination, y = AUROC, color = Algorithm, fill = Algorithm, shape = Algorithm)) +
+  scale_shape_manual(values=c(3,4,7,8,11,15,17,18,19,6)) +
   theme_bw() +
   geom_point() +
   geom_line(aes(group=df$Algorithm)) +
@@ -39,8 +42,8 @@ df %>% ggplot(aes(x = Combination, y = AUROC, color = Algorithm, fill = Algorith
   theme() +
   # facet_grid(rows = vars(Algorithm)) +
   scale_x_discrete(labels = function(x) str_wrap(x, width = 2)) +
-  xlab("Trial Differences")
+  xlab("Number of Combinations")
 
-ggsave("graphs/poster.png", height = 4, width =7 )
+ggsave("graphs/max.png", height = 5, width =7 )
 
 

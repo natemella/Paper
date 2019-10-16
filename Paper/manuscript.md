@@ -33,10 +33,10 @@
 
 *Background*:
 
-Accurate cancer prognosis techniques have potential to significantly aid physicians, patients, and patients' family members. “It can help
- stratify patients into different risk groups and choose both treatment and surveillance strategies”[@yuanAssessingClinicalUtility2014]. However, cancer is
-  complex and accurate predictions are difficult to make. "Human evaluation of pathology slides cannot accurately predict
-   patients’ prognoses[@yuPredictingNonsmallCell2016]." To deal with this complexity, researchers have begun to explore
+Accurate cancer prognosis techniques have potential to significantly aid physicians, patients, and patients' family members. 
+Such prognoses determine treatment and disease monitoring protocols [@yuanAssessingClinicalUtility2014]. However, cancer is
+  complex and accurate predictions are difficult to make. Currently pathology slides cannot lead to accurate prognosis 
+  [@yuPredictingNonsmallCell2016]. To deal with this complexity, researchers have begun to explore
    machine learning techniques[@piccoloClinicalMolecularModels2013].
 Machine learning (ML) is a subdiscipline of artificial intelligence that uses mathematics to detect patterns in massive 
 data sets and draw conclusions from those patterns. The more data the algorithm receives, the more intelligent the ML program
@@ -47,15 +47,24 @@ However, because molecular data is expensive, researchers and clinicians must pr
 Additionally, little research has been done to understand which types and/or combinations of molecular data provide the 
 best predictions. Furthermore, little is known about which ML algorithms work best with such combinations.
 
-*Methods*: 
-Our aim is to perform an extensive benchmark analysis using data from 5,000+ cancer patients from The Cancer Genome Atlas,
+*Methods*
+ 
+Our aim was to perform an extensive benchmark analysis using data from 5,000+ cancer patients from The Cancer Genome Atlas,
  a public resource that has 6 types of molecular data (plus clinical data) for each patient. We will apply state-of-the-art
-  ML algorithms to data from 10 different cancer types to predict the progression free interval (PFI) and
-   overall survival time (OS) after diagnosis of cancer patients.
+  ML algorithms to data from 10 different cancer types to predict the progression free interval after diagnosis of cancer patients.
 
-*Results*:
+*Results*
 
-*Conclusions*: 
+We found that customizing machine learning algorithms and data combinations for specific data types leads to an average
+AUROC of 0.73 to 0.80. We additionally found that about half of the machine learning algorithms that we tested increased 
+prediction accuracy for up to 4 molecular data type combinations while the remainder digressed in their predictive abilities
+due to over-fitting. Additionally, we found that glmnet tends to be the most accurate algorithm on average for any given
+data combination. Lastly, we found that the optimal number of data combinations for making prognosis is three data types,
+but the most cost effective data combination for making predictions is one clinical data combined with any given type of
+molecular data.
+
+*Conclusions*
+
 Understanding how to select, combine, and process clinical and molecular data could have radical implications for cancer
  patients and researchers. Such discoveries will help researchers understand the fundamental factors that lead to cancer 
  survival rates, drastically save researchers’ money, and provide more accurate predictions, leading to better treatments
@@ -252,11 +261,13 @@ cross validation for parameter optimization. All hyper-parameters were chosen ba
  |      2      | SM | SM | miRNA | miRNA | RPPA | RPPA | SM | SM |
  |      3      | mRNA | miRNA | DNA Methylation | SM | miRNA | mRNA | mRNA | mRNA |
  |      4      | RPPA | DNA Methylation | CNV | DNA Methylation | CNV | miRNA | RPPA | RPPA |
- |      5      | miRNA | RPPA |  |  |  |  |  |  |
- |      6      | CNV | mRNA |  |  |  |  |  |  |    
- |      7      | DNA Methylation  | CNV |  |  |  |  |  |  | 
+ |      5      | miRNA | RPPA | RPPA | RPPA | mRNA | CNV | miRNA | miRNA |
+ |      6      | CNV | mRNA | SM | CNV | RPPA | SM | CNV | DNA Methylation |    
+ |      7      | DNA Methylation  | CNV | mRNA | mRNA | DNA Methylation | DNA Methylation | DNA Methylation | CNV | 
 
 (just show which data types tend to be added) 
+
+
 
 **Testing our recommendations.** In order to asses how usesful our recommendations would be to other researchers, we first ran our analysis for 7 out of the 10
 cancer types. We randomly selected these 7 cancer types using a random seed. After determining our recommended data combinations
@@ -407,7 +418,7 @@ Graph 4 caption:
  performance. Clinical data on average was significantly higher than the other data types individually
 
 **Graph 5**
-![](../Graphs/combination_difference.png)
+![](../Graphs/max.png)
 (Need to split into differing facets or add labels)
 
 Graph 5 caption:
@@ -420,6 +431,32 @@ Graph 5 caption:
 Glmnet is made to handle wide data frames. Zero values are excluded from the data set in order to be more memory effecient. Therefore, the increase
 in data does not negatively affect the algorithm as much. We also observed that binary features such as somatic mutation data did extremely well.
 The algorithm that reached the highest total AUROC was eXtreme Gradient Boosting (Xgboost). Xgboost is designed to ________ 
+
+**Discussion**
+ - Did we answer our question?
+ - Is it clear how the research fits into the context of what has been done before?
+ - What has been done before?
+ - What are the contributions?
+ 
+ - What are the limitations?
+ - What are the next steps?
+ 
+ Key findings: how did it relate to what had been done: limitations: next steps
+ 
+Our study aimed to find what affects combining various molecular data types would have on Cancer Prognosis.
+Several researchers have combined clinical variables with molecular variables [@yuanAssessingClinicalUtility2014, @xieGroupLassoRegularized2019], however, no one had
+explored the effects of combining all molecular data types together. Here we have developed a technique for successfully
+ combining molecular data. This technique differs from multimodal deep learning algorithms made to combine data from various tissues in that
+ it focuses on methods for integrating purely molecular data types [@cheerlaDeepLearningMultimodal2019]. In addition,
+ researchers hadn't ever performed a cost-benefit analysis of the utility of multiple forms of molecular data. Here we
+ explore the full potential of concatenating molecular data types.
+ We also have recommendations of which combinations of molecular data to use with specific 
+ machine learning algorithms perform best.
+
+Moving forward, the step would be to find methods for integrating image data into our model. 
+Our analysis is limited in that we didn't feature selection techniques and explore methods of adding data types 
+together based on their predictive probabilities. 
+
 
 **Conclusion**
  - The best combination of data types and algorithm is unique for each cancer type. The safest, cheapest data type option with 

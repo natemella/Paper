@@ -14,7 +14,7 @@ df2 <- read_tsv(args[1]) %>%
 
 df2 = df2 %>%
   group_by(Algorithm, Description) %>%
-  summarise(AUROC=mean(AUROC))
+  summarise(AUROC=mean(AUROC)) %>% rename("Data Type" = Description)
 
 
 # df2 %>% group_by(CancerType, Description) %>% summarize(AUROC = max(AUROC)) %>% inner_join(df2, by = c("AUROC", "CancerType", "Description"))
@@ -46,13 +46,13 @@ cbPalette <- c("#8c510a", "#d8b365", "#f6e8c3", "gray50", "#c7eae5", "#5ab4ac", 
 # cbPalette <- c("#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf")
 # cbPalette <- c("#40004b", "#762a83", "#9970ab", "#c2a5cf", "#e7d4e8", "#d9f0d3", "#a6dba0", "#5aae61", "#1b7837", "#00441b")
 df2 %>%
-  ggplot(aes(x = Description, y = AUROC, color = Algorithm, shape = Algorithm)) +
+  ggplot(aes(x = "Data Type", y = AUROC, color = Algorithm, shape = Algorithm)) +
   # scale_y_reverse() +
   theme_bw() +
   geom_jitter() +
   scale_shape_manual(values=c(3,4,7,8,11,15,17,18,19,6)) +
   coord_flip() +
-  facet_grid(rows = vars(Description), scales='free') +
+  facet_grid(rows = vars("Data Type"), scales='free') +
   scale_color_manual(values = cbPalette) +
   theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
