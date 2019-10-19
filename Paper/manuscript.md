@@ -1,16 +1,14 @@
 ```latex
 \documentclass{article}
 \begin{document}
-\title{Optimizing Cancer Prognosis Through Iterative Heterogenous Data Combinations and Machine Learning}
-
-% Possible alternate titles:
+\title{Optimizing prediction of progression-free interval for cancer patients based on iterative data integration}
 
 \author{%
   \parbox{\linewidth}{
       \vspace{5 mm}
-      Nathan B. Mella,\textsuperscript{1}
-      Tyler Heaton,
-      Stephen R. Piccolo\textsuperscript{*} \\
+      Nathan B. Mella\textsuperscript{1}
+      Tyler Heaton\textsuperscript{1}
+      Stephen R. Piccolo\textsuperscript{1,*} \\
       \vspace{5 mm}
   }%
 }
@@ -31,9 +29,9 @@
 
 # Abstract
 
-*Background*:
-
-Accurate cancer prognosis techniques have potential to significantly aid physicians, patients, and patients' family members. 
+%TODO: Remove references from Abstract. Move them to main body if not already there.
+*Background*: 
+Accurately predicting a cancer patient's prognosis has potential to aid physicians, patients, and patients' family members in making treatment decisions.
 Such prognoses determine treatment and disease monitoring protocols [@yuanAssessingClinicalUtility2014]. However, cancer is
   complex and accurate predictions are difficult to make. Currently pathology slides cannot lead to accurate prognosis 
   [@yuPredictingNonsmallCell2016]. To deal with this complexity, researchers have begun to explore
@@ -47,15 +45,11 @@ However, because molecular data is expensive, researchers and clinicians must pr
 Additionally, little research has been done to understand which types and/or combinations of molecular data provide the 
 best predictions. Furthermore, little is known about which ML algorithms work best with such combinations.
 
-*Methods*
- 
-Our aim was to perform an extensive benchmark analysis using data from 5,000+ cancer patients from The Cancer Genome Atlas,
+*Methods*: Our aim was to perform an extensive benchmark analysis using data from 5,000+ cancer patients from The Cancer Genome Atlas,
  a public resource that has 6 types of molecular data (plus clinical data) for each patient. We will apply state-of-the-art
   ML algorithms to data from 10 different cancer types to predict the progression free interval after diagnosis of cancer patients.
 
-*Results*
-
-We found that customizing machine learning algorithms and data combinations for specific data types leads to an average
+*Results*: We found that customizing machine learning algorithms and data combinations for specific data types leads to an average
 AUROC of 0.73 to 0.80. We additionally found that about half of the machine learning algorithms that we tested increased 
 prediction accuracy for up to 4 molecular data type combinations while the remainder digressed in their predictive abilities
 due to over-fitting. Additionally, we found that glmnet tends to be the most accurate algorithm on average for any given
@@ -63,9 +57,7 @@ data combination. Lastly, we found that the optimal number of data combinations 
 but the most cost effective data combination for making predictions is one clinical data combined with any given type of
 molecular data.
 
-*Conclusions*
-
-Understanding how to select, combine, and process clinical and molecular data could have radical implications for cancer
+*Conclusions*: Understanding how to select, combine, and process clinical and molecular data could have radical implications for cancer
  patients and researchers. Such discoveries will help researchers understand the fundamental factors that lead to cancer 
  survival rates, drastically save researchers’ money, and provide more accurate predictions, leading to better treatments
   for patients.
@@ -99,6 +91,7 @@ Thus, we performed an extensive benchmark analysis using data from the cancer ge
 molecular data types and compared them against each other and against the predictive performance of clinical data. We evaluated ten different machine classification algorithms
 to see which algorithms perform best for each type of data. In addition, we evaluated the potential to combine one or more molecular data types with clinical data and evaluated 
 each algorithms ability to classify PFI status based on these heterogeneous combinations.
+%TODO: Add brief description of Results. Goal: get them excited to read more about what we found.
 
 
 NOTES
@@ -360,7 +353,7 @@ SM represetns Somatic Mutations. Total is the number of patients for whom we hav
  
 
 **Figure 1**
-![](../Graphs/Figure%201.png)
+![](../Graphs/Final_Figure_1.png)
 TODO: Make in google draw simplify box three and make box 7 in series format
 
 Figure 1 shows all four key steps in our work flow. The four steps were carried out until all seven data types were 
