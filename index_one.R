@@ -7,6 +7,7 @@ args <- commandArgs(trailingOnly = TRUE)
 df2 <- read_tsv(args[1]) %>%
   mutate(CancerType = str_replace(CancerType, "^TCGA_", ""), Algorithm=factor(Algorithm)) %>%
   mutate(Description = str_replace(Description, "\\+Clinical\\+miRNA\\+RPPA\\+SM", "")) %>%
+  mutate(Description = str_replace(Description, "_","\n")) %>%
   group_by(Algorithm, CancerType, Description) %>%
   summarize(AUROC=mean(AUROC))
 
@@ -22,8 +23,8 @@ df3 %>%
   theme_bw() +
   scale_shape_manual(values=c(3,4,7,8,11,15,17,18,19,6)) +
   geom_jitter() +
+  xlab("Cancer Types") +
   coord_flip() +
-
   geom_hline(yintercept = 0.5, color = "red", linetype = "dashed") +
   facet_grid(rows = vars(CancerType), scales='free') +
   scale_color_manual(values = cbPalette) +
