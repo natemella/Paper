@@ -1,3 +1,12 @@
+I’m using a tool later today with Dr. Piccolo to convert this format into the PDF that he would like with his tool called latex
+
+
+Please help me with flow and my overall structure. My abstract could also use a lot of work. Thank you.
+
+
+
+Requirements: https://genomemedicine.biomedcentral.com/submission-guidelines/preparing-your-manuscript/research
+
 ```latex
 \documentclass{article}
 \begin{document}
@@ -27,149 +36,87 @@
 \end{document}
 ```
 
+The Abstract should not exceed 350 words. Please minimize the use of abbreviations and do not cite references in the abstract. Reports of randomized controlled trials should follow the CONSORT extension for abstracts. The abstract must include the following separate sections:
+Background: the context and purpose of the study
+Methods: how the study was performed and statistical tests used
+Results: the main findings
+Conclusions: brief summary and potential implications
+Trial registration: If your article reports the results of a health care intervention on human participants, it must be registered in an appropriate registry and the registration number and date of registration should be in stated in this section. If it was not registered prospectively (before enrollment of the first participant), you should include the words 'retrospectively registered'. See our editorial policies for more information on trial registration
 # Abstract
 
-%TODO: Remove references from Abstract. Move them to main body if not already there.
-*Background*: 
-Accurately predicting a cancer patient's prognosis has potential to aid physicians, patients, and patients' family members in making treatment decisions.
-Such prognoses determine treatment and disease monitoring protocols [@yuanAssessingClinicalUtility2014]. However, cancer is
-  complex and accurate predictions are difficult to make. Currently pathology slides cannot lead to accurate prognosis 
-  [@yuPredictingNonsmallCell2016]. To deal with this complexity, researchers have begun to explore
-   machine learning techniques[@piccoloClinicalMolecularModels2013].
-Machine learning (ML) is a subdiscipline of artificial intelligence that uses mathematics to detect patterns in massive 
-data sets and draw conclusions from those patterns. The more data the algorithm receives, the more intelligent the ML program
- becomes. If an algorithm identifies clinically relevant patterns in cancer data, it may become capable of making highly 
- accurate predictions. Advances in our ability to collect clinical and molecular data from cancer patients have led to 
- increased interest in using ML algorithms to estimate cancer outcomes such as prognosis[@cruzApplicationsMachineLearning2006]. 
-However, because molecular data is expensive, researchers and clinicians must prioritize which types of data to collect. 
-Additionally, little research has been done to understand which types and/or combinations of molecular data provide the 
-best predictions. Furthermore, little is known about which ML algorithms work best with such combinations.
+*Background*: Being able to accurately estimate a cancer patient's prognosis has the potential to substantially aid treatment- and disease-monitoring protocols. Each patient's tumor likely holds clues about that patient's prognosis; however, the standard approach of humans evaluating pathology slides has so far not provided sufficiently accurate prognoses, leading researchers to explore whether molecular data—combined with machine learning (ML) techniques—are key to improving prediction accuracy. Generating high-throughput molecular data is still expensive, so researchers must prioritize which types of data to collect. This is problematic because little evidence is available about which types and combinations of molecular data are most predictive. Furthermore, little is known about which ML algorithms work best with different types of molecular data.
+*Methods*: To determine, the best combination of data types, We performed a benchmark analysis using clinical and molecular data from 1489 cancer patients. We applied 8 ML algorithms to 6 molecular data types across 10 cancer types to predict the progression-free interval (PFI) of cancer patients. We also tested combinations of up to 6 molecular data types and clinical features.
+*Results*: The algorithms predicted PFI with an AUROC as high as 0.80. However, these results differed considerably by molecular data type, cancer type, and ML algorithm. Half of the ML algorithms improved prediction accuracy as molecular data were added (the optimal number of data types was 3), while the remainder performed best with clinical features only. The “glmnet” algorithm was the most accurate algorithm when applied to heterogeneous data combinations. 
+*Conclusion*: Researchers can use these benchmark results to prioritize resource allocation, potentially moving closer to translational relevance.
 
-*Methods*: Our aim was to perform an extensive benchmark analysis using data from 5,000+ cancer patients from The Cancer Genome Atlas,
- a public resource that has 6 types of molecular data (plus clinical data) for each patient. We will apply state-of-the-art
-  ML algorithms to data from 10 different cancer types to predict the progression free interval after diagnosis of cancer patients.
-
-*Results*: We found that customizing machine learning algorithms and data combinations for specific data types leads to an average
-AUROC of 0.73 to 0.80. We additionally found that about half of the machine learning algorithms that we tested increased 
-prediction accuracy for up to 4 molecular data type combinations while the remainder digressed in their predictive abilities
-due to over-fitting. Additionally, we found that glmnet tends to be the most accurate algorithm on average for any given
-data combination. Lastly, we found that the optimal number of data combinations for making prognosis is three data types,
-but the most cost effective data combination for making predictions is one clinical data combined with any given type of
-molecular data.
-
-*Conclusions*: Understanding how to select, combine, and process clinical and molecular data could have radical implications for cancer
- patients and researchers. Such discoveries will help researchers understand the fundamental factors that lead to cancer 
- survival rates, drastically save researchers’ money, and provide more accurate predictions, leading to better treatments
-  for patients.
 
 \vspace{5 mm}
+
+Keywords
+Three to ten keywords representing the main content of the article.
 Keywords: Prognosis, Machine Learning, Heterogeneous Data, Combinations, Classification 
 
 \newpage
 
-# Introduction
+# Background
 
-Large volumes of recently produced clinical and molecular data provide unprecedented opportunities for physicians and 
-researchers to advance precision medicine--enabling physicians to tailor medical decisions to patients[@huangOpenSourceMachinelearning2017]. However, this advancement will only occur
-if we can successfully identify relationships between these molecular measurements and patient outcomes. A particularly import outcome to
-understand is the Progression Free Interval (PFI) of a tumor. The PFI represents "the date of diagnosis until the date of
- the first occurrence of a new tumor event (NTE), which includes progression of the disease, locoregional recurrence, 
- distant metastasis, new primary tumor, or death with tumor.[@liuIntegratedTCGAPanCancer2018]"
- PFI is valuable to predict because it represents how effect treatments work, it's easy to define, and it's less susceptible to lurking variables 
- than other outcome predictions. For example, Overall Survival (OS) is valueable and easy to define, but death by other causes unrelated to
- cancer causes this outcome variable to become confounded.
+Background
+The Background section should explain the background to the study, its aims, a summary of the existing literature and why this study was necessary or its contribution to the field.
+Large volumes of recently produced clinical and molecular data provide unprecedented opportunities for physicians and researchers to advance precision medicine--enabling physicians to tailor medical decisions to patients[@huangOpenSourceMachinelearning2017]. However, this advancement will only occur if we can successfully identify relationships between these molecular measurements and patient outcomes. A particularly import outcome to understand is the Progression-Free Interval (PFI) of a tumor. The PFI represents "the date of diagnosis until the date of the first occurrence of a new tumor event (NTE), which includes a progression of the disease, locoregional recurrence, distant metastasis, new primary tumor, or death with the tumor.[@liuIntegratedTCGAPanCancer2018]" PFI is valuable to predict because it represents how effective treatments work, it's easy to define, and it's less susceptible to lurking variables than other outcome predictions. For example, Overall Survival (OS) is valuable and easy to define, but death by other causes unrelated to cancer causes this outcome variable to become confounded.
 
-Many researchers are attempting to use high-throughput molecular profiles for precision medicine and procure biological samples to test
-this ability. Many types of high-throughput molecular profiling are in wide use. These include: micro RNA data (miRNA), mRNA data, copy number variant (CNV), somatic
-mutations (SM), DNA Methylation, and Reverse Phase Protein Array (RPPA). Ideally, these researchers would perform many types of molecular profiling
- and use all of that data in combination to improve predictive accuracy.
-However due to cost limitations researchers typically must choose one or two types of molecular profiling to use for these predictions.
-For example, to perform RNA sequences for a cohort of 200 patients, it would costs $100,000 because each cohort costs roughly $500.
- So it is critical to prioritize budget decisions based on what will provide the best return on investment. 
+Many researchers are attempting to use high-throughput molecular profiles for precision medicine and procure biological samples to test this ability. Many types of high-throughput molecular profiling are in wide use. These include micro RNA data (miRNA), mRNA data, copy number variant (CNV), somatic mutations (SM), DNA Methylation, and Reverse Phase Protein Array (RPPA). Ideally, these researchers would perform many types of molecular profiling and use all of that data in combination to improve predictive accuracy. However, due to cost limitations, researchers typically must choose one or two types of molecular profiling to use for these predictions. For example, to perform RNA sequences for a cohort of 200 patients, it would cost $100,000 because each cohort costs roughly $500. So it is critical to prioritize budget decisions based on what will provide the best return on investment. 
 
-Thus, we performed an extensive benchmark analysis using data from the cancer genome atlas and evaluated the predictive potential of six
-molecular data types and compared them against each other and against the predictive performance of clinical data. We evaluated ten different machine classification algorithms
-to see which algorithms perform best for each type of data. In addition, we evaluated the potential to combine one or more molecular data types with clinical data and evaluated 
-each algorithms ability to classify PFI status based on these heterogeneous combinations.
-%TODO: Add brief description of Results. Goal: get them excited to read more about what we found.
+Thus, we performed an extensive benchmark analysis using data from the cancer genome atlas and evaluated the predictive potential of six molecular data types and compared them against each other and against the predictive performance of clinical data. We evaluated ten different machine classification algorithms to see which algorithms perform best for each type of data. In addition, we evaluated the potential to combine one or more molecular data types with clinical data and evaluated each algorithm’s ability to classify PFI status based on these heterogeneous combinations.
+
+
+%TODO: Add a brief description of Results. Goal: get them excited to read more about what we found.
 
 
 NOTES
+ 
+ 
+In contrast to protein x, Protein Y has been found to bind to RNA
+ 
+ 
 
-    Tell a story
-      **BIG NEED**
-      Precision Medicine Promises to enable physicians to tailor medical decisions to individual patients. -> Clinical & Molecular Measurements
-      -> Molecular Measurements in a high throughput manner. -> Wealth of data gives oppportunity to advance precision medicine if we can succesfully identify 
-      relationships between these molecular measurements and patient outcomes. -> PFI and why this is valueable to predict. 
-
-      **SPECIFIC PROBLEM**
-    
-      **HOW WE'RE ADDRESSING THE PROBLEM and HIGH LEVEL SUMMARY OF METHODS AND RESULTS**
-
-      (Allude to what other have done. At a high level how is what we've done unique and different from what others have done)
-
-     and make accurate cancer outcome predictions using ML. “Machine learning is 
-    not new to cancer research”[@cruzApplicationsMachineLearning2006]. However, ML in cancer prognosis is still relatively new[@cruzApplicationsMachineLearning2006], and there seems to be incredible
-     potential for ML in cancer prognosis with the rapid development of genomic, proteomic and imaging technologies. Molecular
-      biomarkers such as somatic mutations, tumor proteins, and the chemical environment of the tumor may serve as powerful predictive indicators[@cruzApplicationsMachineLearning2006].
-    With this incredible potential, we anticipate that more researchers will study cancer prognosis through ML. One recurring
-     issue, however, is that when researchers want to predict cancer patient outcomes and survival rates using molecular or 
-     clinical data, they typically have to prioritize what type of data to collect due to cost. Furthermore, few researchers
-      have studied which types of molecular data and/or which combinations of such data provide the best predictions. This 
-      makes it imperative that we more fully understand whether certain ML algorithms work better for specific types of molecular data.
-
-    (Site Johnathon's Article on why to separate by cancer types)
 
 # Methods
+
+Methods
+The methods section should include:
+the aim, design and setting of the study
+the characteristics of participants or description of materials
+a clear description of all processes, interventions and comparisons. Generic drug names should generally be used. When proprietary brands are used in research, include the brand names in parentheses
+the type of statistical analysis used, including a power calculation if appropriate
 
 ## Data preparation and filtering
 
 **Core Data Set Compilation.** We downloaded overall survival data and progression free interval data from 
- [cell.com](https://www.cell.com/cms/10.1016/j.cell.2018.02.052/attachment/f4eb6b31-8957-4817-a41f-e46fd2a1d9c3/mmc1.xlsx) [@liuIntegratedTCGAPanCancer2018].
-  We obtained the clinical variables and mRNA expression data from
-   [the gene expression omnibus](ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE62nnn/GSE62944/suppl) [@ahmanAlternativePreprocessingRNASequencing2015], 
-   and we obtained the molecular data (including DNA methylation, miRNA, somatic mutation, and protein expression) 
-   from the Pan-cancer project on [xena](https://pancanatlas.xenahubs.net/download) [@thecancergenomeatlasresearchnetworkCancerGenomeAtlas2013],
-   [@goldmanUCSCXenaPlatform2018].
+ [cell.com](https://www.cell.com/cms/10.1016/j.cell.2018.02.052/attachment/f4eb6b31-8957-4817-a41f-e46fd2a1d9c3/mmc1.xlsx) [@liuIntegratedTCGAPanCancer2018]. We obtained the clinical variables and mRNA expression data from [the gene expression omnibus](ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE62nnn/GSE62944/suppl) [@ahmanAlternativePreprocessingRNASequencing2015], and we obtained the molecular data (including DNA methylation, miRNA, somatic mutation, and protein expression) from the Pan-cancer project on [xena](https://pancanatlas.xenahubs.net/download) [@thecancergenomeatlasresearchnetworkCancerGenomeAtlas2013], [@goldmanUCSCXenaPlatform2018].
 
 ##### Data filtering
 
 **INDICATE WHICH TECHNOLOGY WAS USED FOR PROFILING**
 
-**miRNA Data.** We downloaded our raw miRNA data from [xena](https://xenabrowser.net/datapages/?dataset=pancanMiRs_EBadjOnProtocolPlatformWithoutRepsWithUnCorrectMiRs_08_04_16.xena&host=https%3A%2F%2Fpancanatlas.xenahubs.net&removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443) [@goldmanUCSCXenaPlatform2018].
- All of our data had previously been normalized for 
-batch effects [@leekTacklingWidespreadCritical2010]. The bulk of the samples were processed on the HiSeq platform using the multiMACs protocol.
- We excluded data from all non tumor tissue ID's in our analysis. We also excluded from our analysis patients
-  who didn't contain data across all data types so that each data type could be
- fairly evaluated in its predictive abilities. We averaged together data values for duplicate tumor IDs whenever present.
- We truncated tumor tissue ID's to twelve characters so that IDs would match across all data sets. We excluded all features 
- missing data for more than 20% of the patients. We additionally excluded all tumor IDs missing more than 20% of the 
- kept features. We saved our data with a ".ttsv" file extension so that our software tool Shinylearner would transpose 
+(say the end goal of the filtration)
+
+**miRNA Data.** We downloaded our raw miRNA data from [xena](https://xenabrowser.net/datapages/?dataset=pancanMiRs_EBadjOnProtocolPlatformWithoutRepsWithUnCorrectMiRs_08_04_16.xena&host=https%3A%2F%2Fpancanatlas.xenahubs.net&removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443) [@goldmanUCSCXenaPlatform2018]. All of our miRNA data had previously been normalized for batch effects [@leekTacklingWidespreadCritical2010]. The bulk of the samples were processed on the HiSeq platform using the multiMACs protocol. We excluded data from all non tumor tissue IDs. We also excluded from our analysis patients who didn't contain data across all data types so that each data type could be fairly evaluated in its predictive abilities. We averaged together data values for duplicate tumor IDs whenever present.
+We truncated tumor tissue IDs to twelve characters so that IDs would match across all data sets. We excluded all features missing data for more than 20% of the patients. We additionally excluded all tumor IDs missing more than 20% of the kept features. We saved our data with a ".ttsv" file extension so that our software tool Shinylearner would transpose 
  the data upon processing.
  
 **Copy-number Variation (CNV)** We additionally downloaded CNV data from [xena](https://xenabrowser.net/datapages/?dataset=broad.mit.edu_PANCAN_Genome_Wide_SNP_6_whitelisted.gene.xena&host=https%3A%2F%2Fpancanatlas.xenahubs.net&removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443) [@goldmanUCSCXenaPlatform2018].
- This data had previously been filtered to removed all normal samples and convert segment data to gene level CNV value by
- segment-size-weighted gene average. The samples were processed with SNP6 array platform. Germline cnv was also previous deleted.
-  We additionally filtered this data to limit the analysis to tumor samples, and patients
- who have data across all data types. We truncated our tumor ID's to twelve characters similar to miRNA data. 
- Finally, we separated patients into their respective cancer types and saved them into individual ".ttsv" files for each cancer type.
+This data had previously been filtered to remove all normal samples and convert segment data to gene level CNV value by segment-size-weighted gene average. The samples were processed with SNP6 array platform. Germline CNV was also previous deleted. We additionally filtered this data to limit the analysis to tumor samples, and patients who have data across all data types. We truncated our tumor IDs to twelve characters similar to miRNA data. Finally, we separated patients into their respective cancer types and saved them into individual ".ttsv" files for each cancer type.
  
-**Protein Expression (RPPA)** We downloaded RPPA data from [xena](https://xenabrowser.net/datapages/?dataset=TCGA-RPPA-pancan-clean.xena&host=https%3A%2F%2Fpancanatlas.xenahubs.net&removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443) [@goldmanUCSCXenaPlatform2018]. 
- We limited our analysis to tumor samples. The raw dad had many missing values, so if any protein was missing data for more than 20% of tumor ID's, we excluded the tumor ID.
- We truncated tumor ID's to twelve characters and averaged the data of duplicate tumor ID's together. 
+**Protein Expression (RPPA)** We downloaded RPPA data from [xena](https://xenabrowser.net/datapages/?dataset=TCGA-RPPA-pancan-clean.xena&host=https%3A%2F%2Fpancanatlas.xenahubs.net&removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443) [@goldmanUCSCXenaPlatform2018]. We limited our analysis to tumor samples. The raw dad had many missing values, so if any protein was missing data for more than 20% of tumor ID's, we excluded the tumor ID. We truncated tumor ID's to twelve characters and averaged the data of duplicate tumor ID's together. 
  
  **DNA Methylation** We downloaded DNA Methylation data from xena [@goldmanUCSCXenaPlatform2018]. The microarrays that we used to generate the data
- have 450,00 probes on them. there are roughly 20 probes per gene. We only kept DNA Methylation data probes if they were located within 300 nucleotides of the transcription start site 
- (TSS) because of the inconsistency of probes far from the TSS. DNA methylation profile was measured experimentally using the Infinium HumanMethylation450 array platform.
-  We average values together whenever we found duplicated tumor ID's.  
+ have 450,00 probes on them. There are roughly 20 probes per gene. We only kept DNA Methylation data probes if they were located within 300 nucleotides of the transcription start site  (TSS) because of the inconsistency of probes far from the TSS. DNA methylation profile was measured experimentally using the Infinium HumanMethylation450 array platform. We average values together whenever we found duplicated tumor ID's.  
  
  **mRNA Data** We dowloaded our mRNA data from the [the gene expression omnibus](ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE62nnn/GSE62944/suppl) [@ahmanAlternativePreprocessingRNASequencing2015], 
  We truncated tumor ID's together and averaged duplicated values together. Similar to all of the previous data filtrations, we only kept data for the cancer types specified in our analysis.
  
-**Somatic Mutation variables (SM)** We downloaded SM data from [gdc.cancer.gov](https://api.gdc.cancer.gov/data/1c8cfe5f-e52d-41ba-94da-f15ea1337efc) [@ScalableOpenScience]
- and only used the open access data. We only kept SM variables if they contained a "PASS" in the FILTER column, if NCALLERS was greater than or equal to 3,
- if impact was either moderate or high. Furthermore, we only kept mutation variables if they matched at least one of the following 
- [criteria](https://uswest.ensembl.org/info/genome/variation/prediction/protein_function.html): 
+**Somatic Mutation variables (SM)** We downloaded SM data from [gdc.cancer.gov](https://api.gdc.cancer.gov/data/1c8cfe5f-e52d-41ba-94da-f15ea1337efc) [@ScalableOpenScience] and only used the open access data. We only kept SM variables if they contained a "PASS" in the FILTER column, if NCALLERS was greater than or equal to 3,
+if impact was either moderate or high. Furthermore, we only kept mutation variables if they matched at least one of the following [criteria](https://uswest.ensembl.org/info/genome/variation/prediction/protein_function.html): 
  - The SIFT entry was "deleterious" 
  - The SIFT entry was "deleterious low confidence" the PolyPhen entry was either blank or "not benign"
  - The PolyPhen entry was "probably damaging"
@@ -177,52 +124,22 @@ batch effects [@leekTacklingWidespreadCritical2010]. The bulk of the samples wer
  confidence"
  - There was no SIFT or PolyPhen data.
  
- After filtration, we summarized the somatic mutation data at the gene level. If a given tumor had at least one mutation
-  that passed the above criteria, we assigned it
- a value of 1. Otherwise, we assigned it a value of 0. If a given gene was mutated in fewer than 2 samples from each cancer
-  type, we excluded it from our analysis.
+ After filtration, we summarized the somatic mutation data at the gene level. If a given tumor had at least one mutation that passed the above criteria, we assigned it a value of 1. Otherwise, we assigned it a value of 0. If a given gene was mutated in fewer than 2 samples from each cancer type, we excluded it from our analysis.
  
- **Clinical features** We dowloaded our clinical data from the [the gene expression omnibus](ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE62nnn/GSE62944/suppl) [@ahmanAlternativePreprocessingRNASequencing2015].
- We converted progressive categorical variables such as staging into integer values in order to maintain the progressive relationship. For example, we converted ajcc tumor pathological
- values of T1, T2a, and T2b to 1, 2, and 2 respectively. All categorical values with Roman Numeral representations
- were converted to their respective integer values. We only kept categorical values if there were at least 5 or more 
- patients in that category. We merged interchangeable categories (for example, categories that say yes in differing ways).
- Any tumor site with fewer than 10 values across patients for LGG we called "Other." In the race column, we merged "ASIAN," "NATIVE
- HAWAIIAN OR OTHER PACIFIC ISLANDER," and "AMERICAN INDIAN OR ALASKA NATIVE" into the category "OTHER." For the
- tobacco smoking history indicator, we combined "Current Reformed Smoker, Duration Not Specified" with "Current reformed
-  smoker for < or = 15 years." With LUAD and the anatommic organ subdivision column, we combined "Other (please specify)" and
-  "Bronchial" into a category called "Other." Hemoglobin values of low, normal, and elevated were converted to 1, 2, and 3.
+ **Clinical features** We dowloaded our clinical data from the [the gene expression omnibus](ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE62nnn/GSE62944/suppl) [@ahmanAlternativePreprocessingRNASequencing2015]. We converted progressive categorical variables such as staging into integer values in order to maintain the progressive relationship. For example, we converted ajcc tumor pathological values of T1, T2a, and T2b to 1, 2, and 2 respectively. All categorical values with Roman Numeral representations were converted to their respective integer values. We only kept categorical values if there were at least 5 or more patients in that category. We merged interchangeable categories (for example, categories that say “yes” in multiple ways were merged into one category). Any tumor site with fewer than 10 values across patients for LGG we called "Other." In the race column, we merged "ASIAN," "NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER," and "AMERICAN INDIAN OR ALASKA NATIVE" into the category "OTHER." For the tobacco smoking history indicator, we combined "Current Reformed Smoker, Duration Not Specified" with "Current reformed smoker for < or = 15 years." With LUAD and the anatomic organ subdivision column, we combined "Other (please specify)" and "Bronchial" into a category called "Other." Hemoglobin values of low, normal, and elevated were converted to 1, 2, and 3.
   
- **Scaling, imputing, and one-hot encoding.** We scaled the following data types using the sklearn robust scaler function: Clinical, mRNA Expression, RPPA, 
- and miRNA Expression data. We scaled clinical data before one-hot encoding so that the binary features wouldn't be affected.
- We ran an imputing function on all of our data sets to insure that we didn't have any missing values. Our imputing function
- can be found on the [ShinyLearner Github Repository](https://github.com/srp33/ShinyLearner/blob/master/scripts/Impute.R) [@ShinyLearnerContainerizedBenchmarking].
- We always imputed data first, then scaled it. 
+ **Scaling, imputing, and one-hot encoding.** We scaled the following data types using the sklearn robust scaler function: Clinical, mRNA Expression, RPPA, and miRNA Expression data. We scaled clinical data before one-hot encoding so that the binary features wouldn't be affected.
+We ran an imputing function on all of our data sets to insure that we didn't have any missing values. Our imputing function can be found on the [ShinyLearner Github Repository](https://github.com/srp33/ShinyLearner/blob/master/scripts/Impute.R) [@ShinyLearnerContainerizedBenchmarking]. We always imputed data first, then scaled it. 
 
-**Dichotomization of outcome variables.** Progression Free Interval (PFI) time values were converted to either long PFI (LPFI) or short PFI (SPFI) in the context of 
- the specific cancer type. Values were assigned by dividing tumor samples into their respective cancer types, and then
- calculating the average PFI time for that cancer type. Patients whose PFI times fell within 6 months of the average greater or 
- less than the average where excluded. Patients who were less than 6 months of the average and had a tumor were assigned
- SPFI while any patients greater than 6 months of the average were assigned LPFI. Overall survival (OS) times were
- assigned classification variables using a similar approach. However, tumor events were disregarded in assigning 
- Short Term Survival (STS) from Long Term Survival (LTS).
+**Dichotomization of outcome variables.** Progression Free Interval (PFI) time values were converted to either long PFI (LPFI) or short PFI (SPFI) in the context of the specific cancer type. Values were assigned by dividing tumor samples into their respective cancer types, and then calculating the average PFI time for that cancer type. Patients whose PFI times fell within 6 months of the average greater or less than the average where excluded. Patients who were less than 6 months of the average and had a tumor were assigned SPFI while any patients greater than 6 months of the average were assigned LPFI. Overall survival (OS) times were assigned classification variables using a similar approach. However, tumor events were disregarded in assigning Short Term Survival (STS) from Long Term Survival (LTS).
  
- **Cancer type selection.** Cancer types were selected primarily from the recommendations from 
- [Jianfang Liu, et al.](https://www.cell.com/action/showPdf?pii=S0092-8674%2818%2930229-0)  in their article in Cell on which cancer types are appropriate for
- making PFI outcome predictions [@liuIntegratedTCGAPanCancer2018]. One can find their recommendations by looking at Table 3 of their article.
- We further decreased our cancer type selection to only the cancer types for which we had 100 patients. We additionally 
- decided not to evaluate SKCM because roughly 2/3 of these tumors are metastases to other locations in the body.
+ **Cancer type selection.** Cancer types were selected primarily from the recommendations from [Jianfang Liu, et al.](https://www.cell.com/action/showPdf?pii=S0092-8674%2818%2930229-0)  in their article in Cell on which cancer types are appropriate for making PFI outcome predictions [@liuIntegratedTCGAPanCancer2018]. One can find their recommendations by looking at Table 3 of their article. We further decreased our cancer type selection to only the cancer types for which we had 100 patients. We additionally decided not to evaluate SKCM because roughly 2/3 of these tumors are metastases to other locations in the body.
  
  (What specific recommendation did we follow?)
 
 ### Quantitative analysis and visualization
 
-**Model training and performance comparision**. For each core set, we trained and tested our data using a nested k-fold
-cross validation for parameter optimization. All hyper-parameters were chosen based on inner-test fold performance.
- We used 5 outer folds, 5 inner folds, and tested each data set with 5 iterations. We used Area Under the Receiver 
- Operating Curve (AUROC) as our core metric in assessing algorithm performance because it is capable of handling imbalanced classes.
-  We used the [ShinyLearner](https://github.com/srp33/ShinyLearner) [@ShinyLearnerContainerizedBenchmarking]] software to perform classification.
-   We used eight machine learning models to train and
+**Model training and performance comparision**. For each core set, we trained and tested our data using a nested k-fold cross validation for parameter optimization. All hyper-parameters were chosen based on inner-test fold performance. We used 5 outer folds, 5 inner folds, and tested each data set with 5 iterations. We used Area Under the Receiver Operating Curve (AUROC) as our core metric in assessing algorithm performance because it is capable of handling imbalanced classes. We used the [ShinyLearner](https://github.com/srp33/ShinyLearner) [@ShinyLearnerContainerizedBenchmarking]] software to perform classification. We used eight machine learning models to train and
  test our data from the following packages:
  1. sklearn (python package): [@pedregosaScikitlearnMachineLearning]
     - random forests (RF) [@RandomForestsSpringerLink]
@@ -239,14 +156,9 @@ cross validation for parameter optimization. All hyper-parameters were chosen ba
  The sklearn and mlr packages require are data to be trained in a TSV file format. The weka package required files to be 
  converted into a ARFF format.
  
- To assess the predictive power of integrating heterogeneous molecular data with clinical variables, we 
- used an iterative combinatorial approach. We first calculated the AUROC for each data type, cancer type, algorithm, fold,
- and iterations. We first average the AUROC values across the cross-validation folds for a given iterations, and then averaged across
- the iterations. For each machine learning algorithm and 
- cancer type, we ranked the various types of molecular data and clinical features. We then averaged the ranks across cancer
- types to determine which type of data had the highest rank on average. We then combined the "winning" data set with each of our other
- data sets and measured their AUROC. We continued this process until we combined all 7 of our data types. Combinations
- were mostly unique for each algorithm. Here was the sequential order of data combinations for each algorithm:
+ To assess the predictive power of integrating heterogeneous molecular data with clinical variables, we used an iterative combinatorial approach. We first calculated the AUROC for each data type, cancer type, algorithm, fold, and iterations. We first average the AUROC values across the cross-validation folds for a given iterations, and then averaged across
+ the iterations. For each machine learning algorithm and cancer type, we ranked the various types of molecular data and clinical features. We then averaged the ranks across cancer
+ types to determine which type of data had the highest rank on average. We then combined the "winning" data set with each of our other data sets and measured their AUROC. We continued this process until we combined all 7 of our data types. Combinations were mostly unique for each algorithm. Here was the sequential order of data combinations for each algorithm:
  
  | Order Added | random forest | svm | knn | logistic regression | glmnet | naiveBayes | xgboost | VFI |
  |-------------|-----|----------------|-----|---------------------|--------|------------|---------|-----|
@@ -259,8 +171,6 @@ cross validation for parameter optimization. All hyper-parameters were chosen ba
  |      7      | DNA Methylation  | CNV | mRNA | mRNA | DNA Methylation | DNA Methylation | DNA Methylation | CNV | 
 
 (just show which data types tend to be added) 
-
-
 
 **Testing our recommendations.** In order to asses how usesful our recommendations would be to other researchers, we first ran our analysis for 7 out of the 10
 cancer types. We randomly selected these 7 cancer types using a random seed. After determining our recommended data combinations
@@ -277,6 +187,9 @@ The full Pan-Cancer data set is also available at the (Open Science Framework) h
  Dichotomized survival and PFI data were deposited https://osf.io/3snep/.
 
 # Results
+
+Results
+This should include the findings of the study including, if appropriate, results of statistical analysis which must be included either in the text or as tables and figures
 
 **Assesment of the prognostic power of diverse molecular data.**
 We focused on ten TCGA cancer types: 
@@ -310,11 +223,7 @@ Uterine Corpus Endometrial Carcinoma (UCEC). Cancer types were selected primaril
  standard metric to compare accuracy over sensitivity in order to quanitify the discriminatory power of a classifier predictive
  model: a AUROC of 1 indicates perfect prediction accuracy and a AUROC of 0.5 is the equivalent of a random guess. 
  
-  For each algorithm, the clinical-variable-only models showed substantial predictive power, with AUROCs significantly
-  higher than 0.5 (range: 0.62 – 0.67) when averaged across cancer types. In only 3 out of 56 cases, the model built 
-  from mRNA Expression data had predictive power similar to that of the corresponding clinical-variable-only model .
-    The relative predictive power of individual molecular data sets strongly depended on the cancer type; for example, 
-    the prognostic power was generally higher for STAD than for the other six cancer types. 
+ For each algorithm, the clinical-variable-only models showed substantial predictive power, with AUROCs significantly higher than 0.5 (range: 0.62 – 0.67) when averaged across cancer types. In only 3 out of 56 cases, the model built from mRNA Expression data had predictive power similar to that of the corresponding clinical-variable-only model. The relative predictive power of individual molecular data sets strongly depended on the cancer type; for example, the prognostic power was generally higher for STAD than for the other six cancer types. 
  
  **Table 1 overview of samples**
  
@@ -378,9 +287,7 @@ TODO: violin
 
 Graph 2 caption:
 In figure 2, the bars represent the range for the min AUROC and max AUROC of each algorithm that used a particular data type. 
-Bar colors represent data types. As shown, there is immense variability of AUROC values between data types, algorithms,
- and cancer types signifying a need to strategically pick algorithms according to the appropriate cancer type and data type.
- Overall, it appears that STAD is the most predictive cancer type.
+Bar colors represent data types. As shown, there is immense variability of AUROC values between data types, algorithms, and cancer types signifying a need to strategically pick algorithms according to the appropriate cancer type and data type. Overall, it appears that STAD is the most predictive cancer type.
 
  
 
@@ -399,33 +306,36 @@ TODO: replace _ with '\n'
 "#313695"
 
 Graph 3 caption:
- - While their is huge variability, random_forests tends to best among all data types when their aren't any combinations
- and when averaged across all cancers.
+ - While their is huge variability, random_forests tends to best among all data types when there aren't any combinations and when averaged across all cancers.
  
 **Graph 4**
 ![](../Graphs/most_predictive_datatypesolo.png)
 
 TODO:
 Graph 4 caption:
- - The top performing data type was significantly different for each algorithm. There was a high variety in data type 
- performance. Clinical data on average was significantly higher than the other data types individually
+ - The top performing data type was significantly different for each algorithm. There was a high variety in data type performance. Clinical data on average was significantly higher than the other data types individually
 
 **Graph 5**
 ![](../Graphs/max.png)
 (Need to split into differing facets or add labels)
 
 Graph 5 caption:
- - As you combine data types, you can see that certain algorithms increase performance while others decrease. The highest
- average performing algorithm is glmnet. The x axis shows the number of combinations. Combinations were unique for each algorithm. Values
- above _____ represent statistically significant.
+ - As you combine data types, you can see that certain algorithms increase performance while others decrease. The highest average performing algorithm is glmnet. The x axis shows the number of combinations. Combinations were unique for each algorithm. Values above _____ represent statistically significant.
  
 
 **Computational insights from top-performing algorithms.**
-Glmnet is made to handle wide data frames. Zero values are excluded from the data set in order to be more memory effecient. Therefore, the increase
-in data does not negatively affect the algorithm as much. We also observed that binary features such as somatic mutation data did extremely well.
-The algorithm that reached the highest total AUROC was eXtreme Gradient Boosting (Xgboost). Xgboost is designed to ________ 
+Glmnet is made to handle wide data frames. Zero values are excluded from the data set in order to be more memory effecient. Therefore, the increase in data does not negatively affect the algorithm as much. 
+
+We also observed that binary features such as somatic mutation data did extremely well. The algorithm that reached the highest total AUROC was eXtreme Gradient Boosting (Xgboost). Xgboost is designed to ________ 
+
+
+Glmnet conservers memory and performs best on large data sets by excluding zero values.
 
 **Discussion**
+
+Discussion
+This section should discuss the implications of the findings in context of existing research and highlight limitations of the study.
+
  - Did we answer our question?
  - Is it clear how the research fits into the context of what has been done before?
  - What has been done before?
@@ -438,62 +348,53 @@ The algorithm that reached the highest total AUROC was eXtreme Gradient Boosting
  
 Our study aimed to find what affects combining various molecular data types would have on Cancer Prognosis.
 Several researchers have combined clinical variables with molecular variables [@yuanAssessingClinicalUtility2014, @xieGroupLassoRegularized2019], however, no one had
-explored the effects of combining all molecular data types together. Here we have developed a technique for successfully
- combining molecular data. This technique differs from multimodal deep learning algorithms made to combine data from various tissues in that
- it focuses on methods for integrating purely molecular data types [@cheerlaDeepLearningMultimodal2019]. We developed these recommendation on
- 7 cancer types and benchmarked them against all possible combinations of data type of 3 different cancer types. While doing this
- we saw that our recommendations were better than _____ % of all possible combinations (p value < 0.5). 
+explored the effects of combining all molecular data types together. Here we have developed a technique for successfully combining molecular data. This technique differs from multimodal deep learning algorithms made to combine data from various tissues in that it focuses on methods for integrating purely molecular data types [@cheerlaDeepLearningMultimodal2019]. We developed these recommendation on 7 cancer types and benchmarked them against all possible combinations of data type of 3 different cancer types. While doing this we saw that our recommendations were better than _____ % of all possible combinations (p value < 0.05). 
  
- We found that combining multiple data types increasing model performance in half the algorithms we tested. The max AUROC
- values of molecular or clinical data by itself vs combined clinical and molecular data increased from 0.760 to 0.795 which
- is incremental but statistically significant (p < 0.5). The median AUROC value increased from 0.58 to 6.45. As combinations
- moved past 3 combinations, 6 our the 8 algorithms decreased in their algorithm performance.
+We found that combining multiple data types increasing model performance in half the algorithms we tested. The max AUROC values of molecular or clinical data by itself vs combined clinical and molecular data increased from 0.760 to 0.795 which is incremental but statistically significant (p < 0.05). The median AUROC value increased from 0.58 to 6.45. As combinations moved past 3 combinations, 6 our the 8 algorithms decreased in their algorithm performance.
  
- Another important issue that 
- researchers hadn't ever performed is a cost-benefit analysis of the utility of multiple forms of molecular data (Do some cost
- benefit analysis technique). Here we
- explore the relative value of collecting multiple forms of molecular data types for cancer prognosis. While the use of hetereogenous 
- data enhances predictions in many cases, the incremental enhancement of molecular data on average hardly justifies the cost
- of data collection. This differs however, if researchers follow our recommendations of the optimal combinations.
-  To maximize the costs vs the benefits without performing a preliminary benchmark, we recommend solely using 
-  clinical features for prediction (which in many
- cases, is free to collect), and maximizing the predictive abilities of clinical data through parameter optimization techniques and the use of 
- multiple algorithms benchmarked together. Our studies showed that on average Glmnet worked best, but due to the high variability 
- of algorithm performance between cancer types we recommend following our recommendations listed below.
- 
- (INSERT TABLE WITH RECOMMENDATIONS OF WHICH ALGORITHMS TO USE WITH WHICH CANCER TYPE FOR EACH COMBINATION)
+
+????? How can I quantify the benefit of accurate cancer prognosis
+
+Another important issue not yet addressed is a cost-benefit analysis of the utility of multiple forms of molecular data (Do some cost benefit analysis technique). Here we explore the relative value of collecting multiple forms of molecular data types for cancer prognosis. While the use of heterogeneous data enhances predictions in many cases, the incremental enhancement of molecular data on average hardly justifies the cost of data collection. This differs however, if researchers follow our recommendations of the optimal combinations. To maximize the costs vs the benefits without performing a preliminary benchmark, we recommend solely using clinical features for prediction (which in many cases, is free to collect), and maximizing the predictive abilities of clinical data through parameter optimization techniques and the use of multiple algorithms benchmarked together. Our studies showed that on average Glmnet worked best, but due to the high variability of algorithm performance between cancer types we recommend following our recommendations listed below.
+
   
-A major benefit of our research is it's reproducibility. Both our code and our data our publicly accessible. With simple
-commandline inputs, researchers can download all of our data and reproduce our results. This enhances the transparency of our research and 
-allows researchers to easily integrate our molecular data combination workflow into their prognosis models. This aids the
-precision medicine and prognosis communities.
+A major benefit of our research is it's reproducibility. Both our code and our data our publicly accessible. With simple command-line inputs, researchers can download all of our data and reproduce our results. This enhances the transparency of our research and 
+allows researchers to easily integrate our molecular data combination workflow into their prognosis models, thus aiding the precision medicine and prognosis communities.
 
-Although our study provides key conclusions into improving cancer prognosis, it remains limited in various areas. First, our models were
-only tested on roughly 100 patients per cancer type. Increasing our sample size would likely reduce the extent of variability in our data.
-Second, our model only tested 8 machine learning algorithms. We felt that these algorithms are representative of the main machine learning
-approaches, but due to our small sample size we cannot make estimates on how the average algorithm should perform.
+Although our study provides key conclusions into improving cancer prognosis, it remains limited in various areas. First, our models were only tested on roughly 100 patients per cancer type. Increasing our sample size would likely reduce the extent of variability in our data.
+Second, our model only tested 8 machine learning algorithms. We felt that these algorithms are representative of the main machine learning approaches, but due to our small sample size we cannot make estimates on how the average algorithm should perform. Lastly, we didn’t explore feature selection techniques due to computational time required.
 
 
-Moving forward, the next steps would be to find methods for integrating image data into our model. This has been shown to
- enhance cancer prognosis with deep learning algorithms[@cheerlaDeepLearningMultimodal2019]. It would also make sense to
- explore methods of adding data types together based on their predictive probabilities generated by running machine learning algorithms on
- the data alone. This would likely provide further insight of the predictive potential of data combinations if this were to enhance 
- predictions. We would additionally like to explore predicting more outcomes other than PFI such as Overall Survival (OS), Disease Free Interval (DFI),
- and Disease Specific-Survival (DSS). There is also potential to use similar approaches to ours for making machine learning predictions apart from
- cancer survival rates such as diagnosis, drug effectiveness, or disease predispositions. Integrating multiple data types
- will more accurately reflect the environment of the human body.
+Moving forward, there are several logical next steps. This first is to find methods for integrating image data into our model. This has been shown to enhance cancer prognosis with deep learning algorithms[@cheerlaDeepLearningMultimodal2019]. Another next step is to explore methods of adding data types together based on their predictive probabilities (generated by running machine learning algorithms on the data alone). This could potentially reduce the overfitting issues that occur when data sets have too many variables. We would additionally like to explore predicting more outcomes other than PFI such as Overall Survival (OS), Disease Free Interval (DFI), and Disease Specific-Survival (DSS). Doing so we further aid precision medicine and potentially help with biomarker detection. There is also potential to use similar approaches to ours for making machine learning predictions apart from cancer survival rates such as diagnosis, drug effectiveness, or disease predispositions. Integrating multiple data types will more accurately reflect the environment of the human body.
 
+Conclusions
+This should state clearly the main conclusions and provide an explanation of the importance and relevance of the study reported.
 
 **Conclusion**
- - The best combination of data types and algorithm is unique for each cancer type. The safest, cheapest data type option with 
- effective AUROC values is clinical features. On average you can significantly increase the accuracy of predictions by using Glmnet and 
- xgboost. When we tested our hypothesis on three untested algorithms we found ______.
- 
+Understanding how to select, combine, and process clinical, molecular, and image data could have radical implications for cancer patients and researchers. Such discoveries will help researchers understand the fundamental factors that lead to cancer survival rates, drastically save researchers’ money, and provide more accurate predictions, leading to better treatments for patients.
+
+We found that the best combination of data types and algorithm is unique for each cancer type. However, the most cost effective prediction strategy for maximizing AUROC values is clinical features. On average you can significantly increase the accuracy of predictions by using Glmnet and xgboost algorithms. To optimize predictions up to 80%, researchers replicate our winning combinations. When we benchmarked out winning combinations vs all possible combinations, we found that it outperform 88% of total data type combinations. Using this methodology, cancer prognosis accuracy leading to better cancer treatment.
  
 
 \newpage
 
+
+List of abbreviations
+If abbreviations are used in the text they should be defined in the text at first use, and a list of abbreviations should be provided.
+
+
 # Declarations
+
+Declarations
+All manuscripts must contain the following sections under the heading 'Declarations':
+Ethics approval and consent to participate
+Consent for publication
+Availability of data and materials
+Competing interests
+Funding
+Authors' contributions
+Acknowledgements
+Authors' information (optional)
 
 ### Ethics approval and consent to participate
 
@@ -519,4 +420,8 @@ Funding for this study was provided through Brigham Young University Graduate St
 
 ### Acknowledgements
 
+
+### Authors’ Information
+
 \end{document}
+
